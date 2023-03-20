@@ -53,7 +53,57 @@ function showQuestions(index) {
     const optionList = document.querySelector("#choices");
     let queTag = "<span>" + questions[index].numb + "." + questions[index].question + "</span>";
     let optionTag = '<div class="option">' + questions[index].options[0] + '<span></span></div>';
-        + '<div class="option">' + questions[index].options[1] + '<span></span></div>';
-        + '<div class="option">' + questions[index].options[2] + '<span></span></div>';
-        + '<div class="option">' + questions[index].options[3] + '<span></span></div>';
+    + '<div class="option">' + questions[index].options[1] + '<span></span></div>';
+    + '<div class="option">' + questions[index].options[2] + '<span></span></div>';
+    + '<div class="option">' + questions[index].options[3] + '<span></span></div>';
+
+    queText.innerHTML = queTag;
+    optionList.innerHTML = optionTag;
+    const option = = optionList.querySelectorAll(".option");
+    for (let i = 0; i < option.length; i++) {
+        option[i].setAttribute("onclick", "optionSelected(this)");
+
+
+    }
+
+    //Show next question when question is answered
+
+    function optionSelected(answer) {
+        if (queCount >= 10) {
+            return;
+        }
+
+        let userAns = answer.textContent;
+        let correctAns = questions[queCount].answer;
+        console.log("Answer is correct");
+        const response = document.querySelector("#response");
+        response.innerHTML = "<div id="response"><span>Correct!</span></div>";
+        setTimeout(nextQuestion, 500)
+        score += 1;
+
+
+    } else
+
+    {
+        console.log("Answer is wrong");
+        const response = document.querySelector("#response");
+        response.innerHTML = "<div id="response"><span>Wrong!</span</div>";
+        setTimeout(nextQuestion, 500)
+        counter -= 5
+    }
+
+
+}
+
+function nextQuestion() {
+    queCount++;
+    if(queCount == 10) {
+
+        quizEnd()
+    };
+    showQuestions (queCount);
+    const response = document.querySelector("#response");
+    response.innerHTML = "<div id="response"><span></span></div>";
+}
+
 
