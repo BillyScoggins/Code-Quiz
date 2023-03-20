@@ -16,22 +16,22 @@ var score = 0;
 
 //If continue button pushed
 
-continueBtn.onclick = ()=> {
+continueBtn.onclick = () => {
     infoBox.classList.add("hide");
     startScreen.classList.remove("hide");
 };
 
 //If start button clicked
 
-startBtn.onclick = () => { 
+startBtn.onclick = () => {
     function countdown() {
         counter--;
-        if (counter=== 0){
+        if (counter === 0) {
             clearInterval(startCountdown)
             quizEnd()
         };
         let timeRem = document.querySelector("#time-rem");
-        let timeTag = "<span>Time left: "+ counter +"</span>"
+        let timeTag = "<span>Time left: " + counter + "</span>"
         timeRem.innerHTML = timeTag;
 
     };
@@ -45,12 +45,15 @@ startBtn.onclick = () => {
 //Get questions and options from array
 
 function showQuestions(index) {
-    if (queCount>=10) {
+    if (queCount >= 10) {
         return;
     }
 
     const queText = document.querySelector(".que-text");
     const optionList = document.querySelector("#choices");
-    let queTag = "<span>"+
+    let queTag = "<span>" + questions[index].numb + "." + questions[index].question + "</span>";
+    let optionTag = '<div class="option">' + questions[index].options[0] + '<span></span></div>';
+        + '<div class="option">' + questions[index].options[1] + '<span></span></div>';
+        + '<div class="option">' + questions[index].options[2] + '<span></span></div>';
+        + '<div class="option">' + questions[index].options[3] + '<span></span></div>';
 
-}
