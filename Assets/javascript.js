@@ -1,9 +1,9 @@
 //Get elements
 var startScreen = document.querySelector("#start");
 var startBtn = document.querySelector("#start-btn");
-var infoBox = document.querySelector("info-box");
+var infoBox = document.querySelector(".info-box");
 var exitBtn = document.querySelector(".quit");
-var continueBtn = document.querySelector(".restart");
+var continueBtn = document.querySelector(".restart-btn");
 var quizBox = document.querySelector("quiz-box");
 var endBox = document.querySelector("#quiz-end");
 var submitBtn = document.querySelector("#save-score");
@@ -17,9 +17,15 @@ var score = 0;
 //If continue button pushed
 
 continueBtn.onclick = () => {
-    infoBox.classList.add("hide");
-    startScreen.classList.remove("hide");
+    console.log("Clicked");
+        infoBox.classList.add("hide");
+        startScreen.classList.remove("hide");
 };
+
+    // continueBtn.addEventListener("click", function () {
+    //     infoBox.classList.add("hide");
+    // startScreen.classList.remove("hide");
+// })
 
 //If start button clicked
 
@@ -59,35 +65,32 @@ function showQuestions(index) {
 
     queText.innerHTML = queTag;
     optionList.innerHTML = optionTag;
-    const option = = optionList.querySelectorAll(".option");
+    const option =  optionList.querySelectorAll(".option");
     for (let i = 0; i < option.length; i++) {
         option[i].setAttribute("onclick", "optionSelected(this)");
 
 
     }
+}
 
     //Show next question when question is answered
 
     function optionSelected(answer) {
-        if (queCount >= 10) {
-            return;
-        }
+        if (queCount >= 5) {
 
         let userAns = answer.textContent;
         let correctAns = questions[queCount].answer;
         console.log("Answer is correct");
         const response = document.querySelector("#response");
-        response.innerHTML = "<div id="response"><span>Correct!</span></div>";
+        response.innerHTML = `<div id="${response}"><span>Correct!</span></div>`;
         setTimeout(nextQuestion, 500)
         score += 1;
 
 
-    } else
-
-    {
+    } else {
         console.log("Answer is wrong");
         const response = document.querySelector("#response");
-        response.innerHTML = "<div id="response"><span>Wrong!</span</div>";
+        response.innerHTML = `<div id="${response}"><span>Wrong!</span</div>`;
         setTimeout(nextQuestion, 500)
         counter -= 5
     }
@@ -97,13 +100,49 @@ function showQuestions(index) {
 
 function nextQuestion() {
     queCount++;
-    if(queCount == 10) {
+    if (queCount == 10) {
 
         quizEnd()
     };
-    showQuestions (queCount);
+    showQuestions(queCount);
     const response = document.querySelector("#response");
-    response.innerHTML = "<div id="response"><span></span></div>";
+    response.innerHTML = `<div id="${response}"><span></span></div>`;
+}
+
+//End quiz if questions completed or time runs out
+
+function quizEnd() {
+    quizBox.classList.add("hide");
+    endBox.classList.remove("hide");
+    const scoreText = document.querySelector(".score");
+    let scoreTag = '<h3 class="score"> Your score was ' + score + ' out of 10!</h3>';
+    scoreText.innerHTML = scoreTag;
+}
+//Submit initials
+
+submitBtn.onclick = () => {
+    let initials = initialsText.ariaValueMax;
+
+    //Store initials and score
+
+    var resultsDataObj = {
+        initials: initials,
+        score: score
+
+    }
+
+    localStorage.setItem((localStorage.length + 1), JSON.stringify(resultsDataObj));
+    initials.Text.value = ""
+    location.reload();
 }
 
 
+
+
+// if (condition) {
+//     return something;
+// } else if (condition) {
+//     return something;
+// } else  {
+//     return something
+// }
